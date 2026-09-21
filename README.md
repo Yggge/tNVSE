@@ -5,6 +5,7 @@ tNVSE supports Windows-1251 (CP1251) text encoding for Russian localization.
 Set the following in tnvse.ini:
 
 [Multibyte]
+
 bEnableMultibyteFontHook = 0
 uiEncoding = 5
 
