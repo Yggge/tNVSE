@@ -7,6 +7,7 @@ Set the following in tnvse.ini:
 [Multibyte]
 
 bEnableMultibyteFontHook = 0
+
 uiEncoding = 5
 
 uiEncoding = 5 selects Windows-1251.
