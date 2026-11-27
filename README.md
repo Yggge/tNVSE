@@ -75,12 +75,18 @@ Windows-1251 — однобайтовая кодировка, предназна
 
 ```text
 Data/
-└── NVSE/
-    └── plugins/
-        ├── tnvse.dll
-        ├── tnvse.ini
-        ├── tnvse_fonts.xml
-        └── fonts/
+├── NVSE/plugins/
+│   ├── tnvse.dll
+│   ├── tnvse.ini
+│   ├── tnvse_fonts.xml
+│   └── fonts/                     # Шрифты, указанные в tnvse_fonts.xml
+├── Shaders/Loose/
+│   └── tnvse_freetype_native_*.pso / *.vso
+├── Menus/prefabs/tNVSE/
+│   ├── FontPrewarmOverlay.xml
+│   └── ImeOverlay.xml
+└── Textures/Interface/tNVSE/
+    └── font_prewarm_label.dds
 ```
 
 Дополнительные ресурсы устанавливаются в соответствующие каталоги `Data` согласно структуре архива.
