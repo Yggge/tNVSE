@@ -1,80 +1,108 @@
-# tNVSE
+# tNVSE — русская версия CP1251
 
-tNVSE provides configurable FreeType font rendering, East Asian multibyte text
-support, IME input, and runtime dictionary translation for Fallout: New Vegas.
-The repository includes default, English, Simplified Chinese, and Russian
-configuration examples.
+**tNVSE** — расширение NVSE для Fallout: New Vegas, предоставляющее дополнительные возможности работы со шрифтами, многоязычным текстом, вводом и переводом интерфейса.
 
-## Configuration examples
+Основные возможности оригинального проекта:
 
-Choose one configuration from `docs`:
+- Настраиваемый рендеринг шрифтов FreeType.
+- Поддержка различных кодировок и многоязычного текста.
+- Поддержка IME (Input Method Editor).
+- Перевод текста с помощью словарей во время выполнения игры.
+- Настройка игровых шрифтов, размеров, интервалов и эффектов отображения.
 
-| Directory | FreeType rendering | UI encoding | Multibyte font hook | IME input | Dictionary translation |
-| --- | --- | --- | --- | --- | --- |
-| [default config](docs/default%20config) | Disabled | Windows-1252 | Disabled | Disabled | Disabled |
-| [english config](docs/english%20config) | Enabled | Windows-1252 | Disabled | Disabled | Disabled |
-| [chinese config](docs/chinese%20config) | Enabled | GBK/CP936 | Enabled | Enabled | Enabled |
-| [russian config](docs/russian%20config) | Enabled | Windows-1251 | Disabled | Disabled | Disabled |
+Данный репозиторий является форком оригинального проекта [TIAIMM/tNVSE](https://github.com/TIAIMM/tNVSE). Он сохраняет функциональность оригинального tNVSE и предоставляет русскую конфигурацию с поддержкой Windows-1251 (CP1251), кириллические шрифты и адаптированные правила установки.
 
-`tnvse.ini` controls rendering, encoding, input, and dictionary options.
-`tnvse_fonts.xml` configures individual font slots. The default XML contains a
-commented example with no active fonts; the other three XML files configure
-slots 1-8 and 42. The default and Chinese directories also provide
-`tnvse_dictionary.xml`; dictionary sources must be registered there before they
-can be used. Configuration values in these examples are preset choices, and
-may differ from the defaults used when a key is absent.
+**Репозиторий:** [Yggge/tNVSE](https://github.com/Yggge/tNVSE)
 
-## Installation
+## Конфигурация Russian CP1251
 
-Install tNVSE's runtime files under the game's `Data` directory, then copy the
-selected configuration's `tnvse.ini`, `tnvse_fonts.xml`, and `fonts` directory
-to `Data\NVSE\plugins`. Copy `tnvse_dictionary.xml` when using dictionary
-translation, together with the source files it references.
+В данном репозитории поставляется русская конфигурация tNVSE с поддержкой Windows-1251.
 
-For MO2, use the same directory structure inside the mod. Enable one
-configuration preset and let it override the base package's configuration
-files.
+| Параметр | Значение |
+|---|---|
+| FreeType | Включён |
+| Кодировка | Windows-1251 (CP1251) |
+| Multibyte Font Hook | Отключён |
+| UTF-8 | Отключён |
+| IME | Отключён |
+| Dictionary Translation | Отключён |
+
+Windows-1251 — однобайтовая кодировка, предназначенная для кириллицы. Для отображения русских символов не требуется включать Multibyte Font Hook.
+
+## Файлы конфигурации
+
+### tnvse.ini
+
+Основной файл настроек tNVSE.
+
+Содержит параметры рендеринга FreeType, кодировки интерфейса, многоязычного текста, IME и словарного перевода.
+
+### tnvse_fonts.xml
+
+Файл конфигурации шрифтов.
+
+Позволяет назначать шрифты игровым слотам, задавать размеры, интервалы, ширину символов, базовые линии и дополнительные параметры отображения.
+
+### tnvse_dictionary.xml
+
+Файл словаря перевода, используемый механизмом Dictionary Translation.
+
+Для его работы необходимы соответствующая конфигурация кодировки, включённый Multibyte Font Hook и активированный параметр словарного перевода.
+
+В комплект русской конфигурации CP1251 этот файл не входит.
+
+## Установка
+
+### Загрузка
+
+1. Откройте раздел [Releases](https://github.com/Yggge/tNVSE/releases).
+2. Выберите последнюю опубликованную версию русской сборки CP1251.
+3. В разделе Assets скачайте ZIP-архив сборки.
+
+Не используйте кнопку **Code → Download ZIP**: она загружает исходный код репозитория, а не готовый установочный архив.
+
+### Установка
+
+1. Распакуйте содержимое скачанного архива непосредственно в папку `Data` игры Fallout: New Vegas.
+2. Согласитесь на замену файлов, если система предложит это сделать.
+3. Запустите игру обычным для вашей установки способом.
+
+Архив содержит собранную версию tNVSE, русскую конфигурацию, XML-файл настроек шрифтов и необходимые шрифты.
+
+### Структура установки
+
+Основные файлы конфигурации и плагина располагаются в:
 
 ```text
 Data/
-├── NVSE/plugins/
-│   ├── tnvse.dll
-│   ├── tnvse.ini
-│   ├── tnvse_fonts.xml
-│   ├── tnvse_dictionary.xml       # When using dictionary translation
-│   └── fonts/                     # Files referenced by the selected XML
-├── Shaders/Loose/
-│   └── tnvse_freetype_native_*.pso / *.vso
-├── Menus/prefabs/tNVSE/
-│   ├── FontPrewarmOverlay.xml
-│   └── ImeOverlay.xml
-└── Textures/Interface/tNVSE/
-    └── font_prewarm_label.dds
+└── NVSE/
+    └── plugins/
+        ├── tnvse.dll
+        ├── tnvse.ini
+        ├── tnvse_fonts.xml
+        └── fonts/
 ```
 
-The shader files come from the runtime package or a source build. Overlay XML
-and the label texture are supplied under `docs/Menus` and `docs/Textures`.
-Restart the game after changing the encoding or font configuration.
+Дополнительные ресурсы устанавливаются в соответствующие каталоги `Data` согласно структуре архива.
 
-## UI encoding
+## Кодировки интерфейса
 
-Set `uiEncoding` under `[Multibyte]`:
+Параметр `uiEncoding` определяет кодировку текста, используемую интерфейсом.
 
-| Value | Encoding | Layout |
-| --- | --- | --- |
-| 0 | Windows-1252 | Single byte |
-| 1 | GBK, Windows code page 936 | Double byte |
-| 2 | Big5, Windows code page 950 | Double byte |
-| 3 | Shift-JIS, Windows code page 932 | Double byte |
-| 4 | UHC, Windows code page 949 | Double byte |
-| 5 | Windows-1251 | Single byte |
+| Значение | Кодировка | Кодовая страница |
+|---:|---|---:|
+| `0` | Windows-1252 | 1252 |
+| `1` | GBK | CP936 |
+| `2` | Big5 | CP950 |
+| `3` | Shift-JIS | CP932 |
+| `4` | UHC | CP949 |
+| `5` | Windows-1251 | 1251 |
 
-FreeType rendering is controlled independently by
-`bEnableFreeTypeFontRendering` under `[FreeTypeFont]`. East Asian layouts 1-4
-also require `bEnableMultibyteFontHook=1`. With that hook disabled, FreeType
-uses Windows-1252 unless `uiEncoding=5` selects Windows-1251.
+Windows-1251 — однобайтовая кодировка, предназначенная для кириллицы.
 
-The Russian preset uses:
+### Настройки русской конфигурации
+
+Основные параметры в `tnvse.ini`:
 
 ```ini
 [FreeTypeFont]
@@ -86,106 +114,204 @@ uiEncoding = 5
 bUTF8 = 0
 ```
 
-Windows-1251 decodes Cyrillic text through the single-byte font configuration.
-It does not enable the East Asian UTF-8 conversion, IME, or dictionary paths.
-The source text must use the selected code page and the configured face must
-contain the required glyphs. Selecting an encoding does not translate the
-game's text.
+Для русской конфигурации:
 
-`bUTF8=1` enables supported UTF-8 source detection and conversion for East
-Asian modes 1-4. `bMultibyteInput=1` requires those modes and successfully
-installed multibyte font hooks.
+- FreeType включён.
+- Используется Windows-1251.
+- Multibyte Font Hook отключён.
+- UTF-8 conversion отключена.
+- IME и Dictionary Translation не используются.
 
-## Fonts
+Выбор кодировки не выполняет автоматический перевод игрового текста. Исходные строки должны соответствовать выбранной кодовой странице, а используемые шрифты должны содержать необходимые символы.
 
-The active font references in the supplied presets are:
+### Восточноазиатские кодировки
 
-| Preset | Slots 1-4, 6-7, 42 | Slot 5 | Slot 8 |
-| --- | --- | --- | --- |
-| English | `monofonto.ttf` | `FixedsysExcelsior.ttf` | `Futura BdCn BT Bold.ttf` |
-| Chinese, single byte | `monofonto.ttf` | `FixedsysExcelsior.ttf` | `Futura BdCn BT Bold.ttf` |
-| Chinese, double byte | `SarasaUiSC-Bold.ttf` | `WenQuanYi Bitmap Song 16px.ttf` | `HarmonyOS_Sans_SC_Black.ttf` |
-| Russian, single byte | `Barlow Condensed-Medium.ttf` | `Fixedsys Excelsior 3.01-Regular.ttf` | `Barlow Condensed-Bold.ttf` |
+Оригинальный tNVSE поддерживает кодировки GBK, Big5, Shift-JIS и UHC, использующие механизмы многоязычного отображения текста.
 
-The English font directory contains `FixedsysExcelsior.ttf`. The Chinese
-directory contains that font and the three CJK faces listed above, plus
-`SourceHanMonoSC-Heavy.otf`, which the current preset does not reference.
-The Russian directory contains its three referenced fonts. Its Barlow
-Condensed faces are Cyrillic versions prepared by Yggge.
+Для этих режимов требуется включённый Multibyte Font Hook.
 
-`monofonto.ttf` and `Futura BdCn BT Bold.ttf` are referenced by the English
-and Chinese presets but are not included in their source directories. Supply
-these files from your font package or update the XML paths to suitable faces.
+Параметр `bUTF8` управляет обнаружением и преобразованием поддерживаемого UTF-8-текста в соответствующих режимах. Он не требуется для русской конфигурации Windows-1251.
 
-`<singleByte>` handles valid one-byte units, including Windows-1252 and
-Windows-1251 characters. `<doubleByte>` handles valid East Asian DBCS pairs.
-A `<face>` and optional `<fallback>` chain declared directly under `<font>`
-is inherited by both classes. A class-specific chain replaces the inherited
-chain. Paths are absolute or relative to `FalloutNV.exe`, for example
-`Data\NVSE\plugins\fonts\SarasaUiSC-Bold.ttf`.
+## Шрифты
 
-Font slots, sizes, tracking, fixed widths, baseline adjustments, and glow,
-outline, and shadow effects are configured in `tnvse_fonts.xml`. The supplied
-font XML files include the attribute reference. Only listed slots are
-configured; the last entry wins when a slot is repeated. Slot 42 targets the
-Stewie Tweaks menu font registered through JIP LN NVSE. Extended slots 10-89
-require registration through JIP; slot 9 is invalid.
+tNVSE позволяет назначать разные шрифты отдельным элементам игрового интерфейса.
 
-`prewarmEncoding="gbk"` or `"gb2312"` controls CP936 startup coverage only.
-It does not select the text encoding and has no effect on Windows-1251.
+### Шрифты русской конфигурации
 
-## Rendering and optional integrations
+| Шрифт | Назначение |
+|---|---|
+| Barlow Condensed Medium | Основные игровые шрифты |
+| Fixedsys Excelsior 3.01 Regular | Отдельные элементы интерфейса |
+| Barlow Condensed Bold | Жирное начертание |
 
-`uiFreeTypeFontDistanceFieldMode` selects baked effects (0), TSDF (1), or
-MTSDF (2). Fallout Shader Loader 1.40 or newer enables the optional native
-shader route; an ARGB compatibility route is used when it is unavailable.
-The supplied presets select mode 2.
+Используемые файлы:
 
-IME adapters can integrate with Stewie Tweaks, MCM Extender, Dialogue History,
-and Modern Help Menu according to the `[MultibyteInput]` options. The Stewie
-input integration requires version 9.95 or newer. JIP Big Guns replacement
-and JIP key-event suppression are specific to JIP LN NVSE 57.30; enable them
-only for the matching setup.
+```text
+fonts/
+├── Barlow Condensed-Medium.ttf
+├── Barlow Condensed-Bold.ttf
+└── Fixedsys Excelsior 3.01-Regular.ttf
+```
 
-## Dictionary translation
+### Распределение шрифтов по слотам
 
-The dictionary path requires an East Asian encoding, multibyte font hooks,
-and `bEnableDictionaryTranslation=1`. Register text, XML, JSON, or directory
-sources in `Data\NVSE\plugins\tnvse_dictionary.xml`. The supplied dictionary
-XML files contain registration examples.
+Для русской конфигурации используются следующие назначения:
 
-Exact and ID matches are supported alongside optional wildcard, regular
-expression, and structured UI translation. Mixed DBCS/ASCII wildcard, regex,
-and Perk translation additionally require
-`bEnableDictionaryMixedSourceTranslation=1` and the corresponding route
-option. That mixed-source option is disabled in the supplied presets.
-`<perkrequirements>` configures the translated requirement labels and logic
-words. Console-open dictionary translation is bypassed by default through
-`bDisableDictionaryTranslationInConsole=1`.
+| Слоты | Шрифт |
+|---|---|
+| 1–4, 6–7, 42 | Barlow Condensed Medium |
+| 5 | Fixedsys Excelsior 3.01 Regular |
+| 8 | Barlow Condensed Bold |
 
-## Building from source
+Слот 42 используется JIP LN NVSE Plugin. Дополнительные слоты 10–89 также требуют поддержки JIP LN. Слот 9 не используется.
 
-Use Visual Studio 2026 with MSVC v145, the Win32 target, and CMake 4.3.1 or
-newer. Initialize the FreeType and msdfgen submodules and restore the NuGet
-packages before configuring:
+### Однобайтовые и двухбайтовые шрифты
+
+В `tnvse_fonts.xml` используются отдельные определения:
+
+- `<singleByte>` — для однобайтовых кодировок, включая Windows-1252 и Windows-1251.
+- `<doubleByte>` — для двухбайтовых кодировок.
+
+Путь к шрифту может быть абсолютным или относительным к исполняемому файлу `FalloutNV.exe`.
+
+Шрифт должен содержать символы используемой кодовой страницы. Для русской конфигурации необходимо наличие кириллицы.
+
+## FreeType и эффекты отображения
+
+FreeType обеспечивает расширенные возможности отображения шрифтов.
+
+Основной параметр:
+
+```ini
+[FreeTypeFont]
+bEnableFreeTypeFontRendering = 1
+```
+
+В зависимости от конфигурации могут использоваться различные режимы отображения:
+
+- `0` — стандартный режим эффектов.
+- `1` — TSDF.
+- `2` — MTSDF.
+
+Для использования нативного маршрута шейдеров требуется Fallout Shader Loader версии 1.40 или новее. При отсутствии необходимых условий используется совместимый режим отображения.
+
+## IME Input
+
+IME (Input Method Editor) обеспечивает ввод символов, которые нельзя непосредственно ввести стандартной клавиатурной раскладкой.
+
+Эта возможность предназначена прежде всего для восточноазиатских языков.
+
+IME используется совместно с соответствующими многоязычными кодировками и не требуется для русской конфигурации CP1251.
+
+## Dictionary Translation
+
+Механизм Dictionary Translation позволяет заменять текст во время выполнения игры с помощью словаря.
+
+Для его использования необходимы:
+
+- Поддерживаемая восточноазиатская кодировка.
+- Включённый Multibyte Font Hook.
+- Параметр `bEnableDictionaryTranslation = 1`.
+- Файл `tnvse_dictionary.xml`.
+
+Русская конфигурация CP1251 не использует этот механизм.
+
+## Дополнительные настройки
+
+### prewarmEncoding
+
+Параметр `prewarmEncoding` предназначен для предварительной подготовки символов при запуске игры.
+
+Возможные значения включают `gbk` и `gb2312`.
+
+Эта функция относится к кодировке CP936 и не предназначена для Windows-1251.
+
+## Совместимость с менеджерами модификаций
+
+Менеджеры модификаций, такие как Mod Organizer 2 (MO2) и Vortex, используют собственные механизмы управления файлами. В определённых конфигурациях они могут влиять на загрузку компонентов tNVSE.
+
+Возможные причины конфликтов:
+
+- Подмена `tnvse.dll` другой версией.
+- Использование несовместимых файлов `tnvse.ini` и `tnvse_fonts.xml`.
+- Перезапись шрифтов другими модификациями.
+- Конфликты XML-файлов меню, HUD и других элементов интерфейса.
+- Различия между реальными файлами `Data` и файлами, предоставляемыми виртуальной файловой системой менеджера.
+
+Для первоначальной установки и проверки работоспособности рекомендуется прямая установка в папку `Data`.
+
+Использование MO2 или Vortex само по себе не означает несовместимость с tNVSE. Однако необходимо контролировать приоритеты модификаций и фактически загружаемые файлы.
+
+## Сборка из исходного кода
+
+### Требования
+
+- Windows 10/11.
+- Visual Studio 2022.
+- MSVC.
+- Windows SDK.
+- CMake.
+- Целевая архитектура Win32.
+
+### Получение исходного кода
+
+```powershell
+git clone --recurse-submodules https://github.com/Yggge/tNVSE.git
+cd tNVSE
+```
+
+Если подмодули ещё не загружены:
 
 ```powershell
 git submodule update --init --recursive
-nuget restore tnvse/packages.config -PackagesDirectory tnvse/packages
-cmake --preset vs2026-win32
-cmake --build --preset vs2026-win32-release
 ```
 
-The Release DLL and PDB are written to
-`out/build/vs2026-win32/bin/Release`. Compiled shaders are written to
-`tnvse/shaders/compiled`.
+### Конфигурация проекта
 
-For live deployment, set `NVSE_PLUGIN_PATH` to the destination `NVSE/plugins`
-directory before configuring. The build deploys the DLL, PDB, native shaders,
-overlay XML, and overlay texture into the corresponding mod directories.
-Copy the selected INI, font XML, dictionary XML, and font files separately.
+```powershell
+cmake -S . -B build -G "Visual Studio 17 2022" -A Win32
+```
 
-The current CMake install rules still reference the old `docs/tnvse_fonts.xml`
-and `docs/fonts` locations rather than selecting a preset from `docs`.
-Use the manual configuration installation above; the install target does not
-automatically install a language preset.
+### Сборка Release
+
+```powershell
+cmake --build build --config Release --target tnvse --parallel
+```
+
+Результат сборки:
+
+```text
+build/bin/Release/tnvse.dll
+```
+
+### Установка
+
+```powershell
+cmake --install build --config Release --prefix "ПУТЬ_К_ИГРЕ\Data"
+```
+
+Например:
+
+```powershell
+cmake --install build --config Release --prefix "D:\GOG Games\Fallout New Vegas\Data"
+```
+
+В данном форке правила CMake адаптированы для установки русской конфигурации:
+
+- `tnvse.ini`;
+- `tnvse_fonts.xml`;
+- каталога `fonts` с кириллическими шрифтами.
+
+Установочный механизм использует подготовленные файлы русской конфигурации, а не прежние пути `docs/tnvse_fonts.xml` и `docs/fonts`.
+
+## Благодарности
+
+- [TIAIMM](https://github.com/TIAIMM) — автор оригинального проекта tNVSE.
+- [Yggge](https://github.com/Yggge) — поддержка CP1251, русская конфигурация и адаптация установки.
+- Авторам Barlow Condensed и Fixedsys Excelsior — за используемые шрифты.
+
+## Репозитории и релизы
+
+- [Оригинальный проект TIAIMM/tNVSE](https://github.com/TIAIMM/tNVSE)
+- [Русская версия Yggge/tNVSE](https://github.com/Yggge/tNVSE)
+- [Релизы русской версии](https://github.com/Yggge/tNVSE/releases)
