@@ -426,17 +426,25 @@ tnvse_enable_live_deployment(tnvse "${TNVSE_PLUGIN_PATH}"
 
 install(TARGETS tnvse RUNTIME DESTINATION "NVSE/plugins")
 install(FILES ${TNVSE_SHADER_OUTPUTS} DESTINATION "Shaders/Loose")
+
 install(CODE [[
   file(REMOVE
     "${CMAKE_INSTALL_PREFIX}/Menus/prefabs/tNVSE/NativeOverlays.xml")
 ]])
+
 install(FILES ${TNVSE_NATIVE_OVERLAY_XMLS}
   DESTINATION "Menus/prefabs/tNVSE")
+
 install(FILES ${TNVSE_NATIVE_OVERLAY_TEXTURES}
   DESTINATION "Textures/Interface/tNVSE")
-install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/docs/tnvse_fonts.xml"
+
+# Russian configuration
+install(FILES
+  "${CMAKE_CURRENT_SOURCE_DIR}/docs/russian config/tnvse.ini"
+  "${CMAKE_CURRENT_SOURCE_DIR}/docs/russian config/tnvse_fonts.xml"
   DESTINATION "NVSE/plugins")
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs/fonts/"
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/docs/russian config/fonts/"
   DESTINATION "NVSE/plugins/fonts"
   FILES_MATCHING
     PATTERN "*.ttf"
